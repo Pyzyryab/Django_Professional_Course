@@ -22,7 +22,7 @@ class LibroManager(models.Manager):
         import datetime
 
         fecha_inicio = datetime.datetime.strptime(fecha_inicio, '%Y-%m-%d').date()        
-        fecha_FIN = datetime.datetime.strptime(fecha_fin, '%Y-%m-%d').date()
+        fecha_fin = datetime.datetime.strptime(fecha_fin, '%Y-%m-%d').date()
 
         resultado = self.filter(
             titulo__icontains=kword,
@@ -30,3 +30,8 @@ class LibroManager(models.Manager):
             ) 
         return resultado
 
+    def listar_libros_categoria(self, categoria):
+
+        return self.filter(
+            categoria__id = categoria
+        ).order_by('titulo')

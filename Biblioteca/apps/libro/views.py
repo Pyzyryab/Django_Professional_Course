@@ -19,3 +19,13 @@ class ListaLibros(ListView):
             return Libro.objects.lista_libros_nombre_fechas(input, fecha_inicio, fecha_fin)
         else:
             return Libro.objects.lista_libros_completa
+
+class ListaLibrosCategoria(ListView):
+    context_object_name = 'lista_libros'
+    template_name = 'libro/lista_categoria.html'
+
+    def get_queryset(self):
+        
+        return Libro.objects.listar_libros_categoria('1')
+
+        # return Libro.objects.lista_libros_completa
