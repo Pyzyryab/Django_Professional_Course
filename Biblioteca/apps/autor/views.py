@@ -18,3 +18,4 @@ class ListaAutores(ListView):
         else:
             return Autor.objects.buscar_autor(input.capitalize())
         
+        # return Autor.objects.buscar_autor_mayor_menor_que(input)
