@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
 from .models import Libro
@@ -11,7 +11,7 @@ class ListaLibros(ListView):
     def get_queryset(self):
         
         input = self.request.GET.get("kword", '') #! OJO, es una tupla que recibe cómo segundo parámetro string vacío
-        #Recogemos los campos datetime pasados en el HTML
+        #!Recogemos los campos datetime pasados en el HTML
         fecha_inicio = self.request.GET.get("fecha_inicio", '')
         fecha_fin = self.request.GET.get("fecha_fin", '')
         
@@ -29,3 +29,7 @@ class ListaLibrosCategoria(ListView):
         return Libro.objects.listar_libros_categoria('1')
 
         # return Libro.objects.lista_libros_completa
+
+class LibroDetailView(DetailView): # Las detail view pasan internamente el context automáticamente
+    model = Libro
+    template_name = 'libro/libro_detail.html'
