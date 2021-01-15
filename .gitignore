@@ -1,1 +1,4 @@
 venvBiblioteca/
+secret.json
+.vscode/
+__pycache__/
