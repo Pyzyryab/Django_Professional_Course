@@ -2,24 +2,34 @@ from django.db import models
 from django.db.models import Q # Esto es para importar el operador OR
 from django.db.models import Count # Esto es para importar el operador OR
 
+from django.contrib.postgres.search import TrigramSimilarity
+
 # Para el operador & se pasa con una simple coma entre parámtros
 
 class LibroManager(models.Manager):
     '''Managers from Autor model'''
 
+    def lista_libros_triagram(self, kword):
+        if kword:
+            resultado = self.filter(
+                titulo__triagram_similar=kword,
+                )
+            return resultado
+        else:
+            return self.all()[:10]
+
+
     def lista_libros_completa(self):
         return self.all() 
 
     def lista_libros(self, kword):
-
         resultado = self.filter(
             titulo__icontains=kword,
             fecha__range=('1960-01-01','2007-01-01')
             ) 
         return resultado
 
-    def lista_libros_nombre_fechas(self, kword, fecha_inicio, fecha_fin):
-        
+    def lista_libros_nombre_fechas(self, kword, fecha_inicio, fecha_fin):     
         #Por si acaso el rango de fechas es inválido
         import datetime
 

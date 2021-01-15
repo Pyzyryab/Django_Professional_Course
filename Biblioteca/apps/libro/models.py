@@ -28,5 +28,16 @@ class Libro(models.Model):
 
     objects = LibroManager()
 
+    class Meta:
+        verbose_name = 'Libro'
+        verbose_name_plural = 'Libros'
+        ordering = ['titulo', 'fecha']
+
+        # Para conseguir acceder y modificar el nombre que la ORM de Django guarda en BBDD
+        db_table = 'Libro'
+
+        # Para que la combinación de X campos sea única
+        unique_together = ['titulo', 'fecha']
+
     def __str__(self):
         return f'{str(self.id)} - {self.titulo}'

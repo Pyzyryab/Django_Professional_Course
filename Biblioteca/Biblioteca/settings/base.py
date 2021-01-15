@@ -1,11 +1,23 @@
+from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
+import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'z9%s^91es9jgih(jry2!dfk&#n*6@2l)dtfh@4p0rjvyf*kfdf'
+with open('secret.json') as file:
+    secret_file = json.loads(file.read())
+
+def get_secret_data(secret_name, secrets=secret_file):
+    try:
+        return secrets[secret_name]
+    except:
+        msg = 'Something went wrong with your %s' % secret_name
+        raise ImproperlyConfigured(msg)
+
+SECRET_KEY = get_secret_data('SECRET_KEY')
 
 # Application definition
 INSTALLED_APPS = [
@@ -15,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'apps.autor',
     'apps.libro',
     'apps.lector',

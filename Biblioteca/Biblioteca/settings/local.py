@@ -7,9 +7,9 @@ ALLOWED_HOSTS = []
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbbiblioteca',
-        'USER': 'zdc',
-        'PASSWORD' : 'ggprueba',
+        'NAME': get_secret_data('DB_NAME'),
+        'USER': get_secret_data('DB_USER'),
+        'PASSWORD' : get_secret_data('DB_PASSWORD'),
         'HOST' : 'localhost',
         'PORT' : '5432',
     }

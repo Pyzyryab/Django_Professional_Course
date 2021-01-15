@@ -33,3 +33,12 @@ class ListaLibrosCategoria(ListView):
 class LibroDetailView(DetailView): # Las detail view pasan internamente el context automáticamente
     model = Libro
     template_name = 'libro/libro_detail.html'
+
+class ListaLibrosTriagram(ListView):
+    context_object_name = 'lista_libros'
+    template_name = 'libro/lista.html'
+
+    def get_queryset(self):
+        
+        input = self.request.GET.get("kword", '') 
+        return Libro.objects.lista_libros_triagram(input)
